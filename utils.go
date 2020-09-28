@@ -29,13 +29,24 @@ func printBytes(body io.Reader, client *Client) {
 func respError(path string) {
 	log.Fatalf("Error in getting reponse from path : %s\n", path)
 }
+
+// HTTP                            Header Description
+// ======================================================================
+// X-RateLimit-UserLimit           Total credits that can be allocated.
+// X-RateLimit-UserRemaining       Total credits available.
+// X-RateLimit-UserReset           Timestamp (unix epoch) for when the credits will be reset.
+// X-RateLimit-ClientLimit         Total credits that can be allocated for the application in a day.
+// X-RateLimit-ClientRemaining     Total credits remaining for the application in a day.
+
 func PrintHeader(resp *http.Response) {
 	fmt.Println(resp.Status)
 
 	fmt.Println("--------REQUEST HEADER--------")
-	fmt.Printf("Ratelimit Used : %s\n", resp.Header.Get("X-Ratelimit-Used"))
-	fmt.Printf("Ratelimit Remaining : %s\n", resp.Header.Get("X-Ratelimit-Remaining"))
-	fmt.Printf("Ratelimit Reset : %s\n", resp.Header.Get("X-Ratelimit-Reset"))
+	fmt.Printf("Ratelimit UserLimit       : %s\n", resp.Header.Get("X-RateLimit-UserLimit"))
+	fmt.Printf("Ratelimit UserRemaining   : %s\n", resp.Header.Get("X-Ratelimit-UserRemaining"))
+	fmt.Printf("Ratelimit UserReset       : %s\n", resp.Header.Get("X-Ratelimit-UserReset"))
+	fmt.Printf("Ratelimit ClientLimit     : %s\n", resp.Header.Get("X-Ratelimit-ClientLimit"))
+	fmt.Printf("Ratelimit ClientRemaining : %s\n", resp.Header.Get("X-Ratelimit-ClientRemaining"))
 	fmt.Println("--------REQUEST HEADER--------")
 
 }
