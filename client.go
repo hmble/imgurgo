@@ -33,6 +33,7 @@ type Client struct {
 
 	Print   bool
 	Account *AccountService
+	Image   *ImageService
 }
 
 type ratelimit struct {
@@ -59,6 +60,7 @@ func (u *User) UserClient(token *oauth2.Token) *Client {
 	c.Print = false
 	c.common.client = c
 	c.Account = (*AccountService)(&c.common)
+	c.Image = (*ImageService)(&c.common)
 	// here we can't use service struct because we included `path` member in
 	// CommentService
 	return c
@@ -142,7 +144,6 @@ func (c *Client) Post(endpoint string, postdata PostData) (*http.Response, error
 	data := url.Values{}
 
 	fullurl := BaseAuthURL + endpoint
-	data.Set("api_type", "json")
 
 	for k, v := range postdata {
 		data.Set(k, v)
@@ -217,8 +218,6 @@ func (c *Client) Delete(endpoint string, opts Option) (res *http.Response, err e
 	u, _ := url.Parse(temp)
 	q, _ := url.ParseQuery(u.RawQuery)
 
-	q.Add("raw_json", "1")
-
 	for k, v := range opts {
 		q.Add(k, v)
 	}
@@ -232,7 +231,7 @@ func (c *Client) Delete(endpoint string, opts Option) (res *http.Response, err e
 		return nil, err
 	}
 
-	str := fmt.Sprintf("bearer %s", c.Token.AccessToken)
+	str := fmt.Sprintf("Bearer %s", c.Token.AccessToken)
 	req.Header.Add("Authorization", str)
 
 	return c.Http.Do(req)

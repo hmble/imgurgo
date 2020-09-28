@@ -33,6 +33,8 @@ func main() {
 
 	c := u.UserClient(token)
 
-	c.Account.AccountSettings()
+	c.SetPrint()
+
+	c.Account.AlbumIds("")
 
 }
