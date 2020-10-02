@@ -33,6 +33,7 @@ type Client struct {
 
 	Print   bool
 	Account *AccountService
+	Album   *AlbumService
 	Image   *ImageService
 }
 
@@ -60,6 +61,7 @@ func (u *User) UserClient(token *oauth2.Token) *Client {
 	c.Print = false
 	c.common.client = c
 	c.Account = (*AccountService)(&c.common)
+	c.Album = (*AlbumService)(&c.common)
 	c.Image = (*ImageService)(&c.common)
 	// here we can't use service struct because we included `path` member in
 	// CommentService
