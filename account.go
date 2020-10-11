@@ -384,7 +384,7 @@ func (a *AccountService) CommentDeletion(id string) {
 //images by setting the page, this defaults to 0.
 func (a *AccountService) Images(page int) {
 	path := fmt.Sprintf("/account/me/images/%d", page)
-	resp, err := a.client.Delete(path, NoOptions)
+	resp, err := a.client.Get(path, NoOptions)
 
 	if err != nil {
 		respError(path)
