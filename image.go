@@ -22,7 +22,6 @@ type ImageRespone struct {
 }
 
 // Get information about an image.
-
 func (i *ImageService) Info(id string) {
 	path := fmt.Sprintf("/image/%s", id)
 

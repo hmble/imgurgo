@@ -382,7 +382,6 @@ func (a *AccountService) CommentDeletion(id string) {
 
 //Return all of the images associated with the account. You can page through the
 //images by setting the page, this defaults to 0.
-
 func (a *AccountService) Images(page int) {
 	path := fmt.Sprintf("/account/me/images/%d", page)
 	resp, err := a.client.Delete(path, NoOptions)
