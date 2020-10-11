@@ -11,14 +11,18 @@ type ImageService service
 
 // Image upload
 
-type ImageRespone struct {
-	Id         string        `json:"id"`
-	Link       string        `json:"link"`
-	Width      int32         `json:"width"`
-	Height     int32         `json:"height"`
-	Size       uint64        `json:"size"`
-	Datetime   time.Duration `json:"datetime"`
-	Deletehash string        `json:"deletehash"`
+type Image struct {
+	ID          string        `json:"id"`
+	Link        string        `json:"link"`
+	Width       int32         `json:"width"`
+	Height      int32         `json:"height"`
+	Size        uint64        `json:"size"`
+	Datetime    time.Duration `json:"datetime"`
+	Deletehash  string        `json:"deletehash"`
+	Views       int64         `json:"views"`
+	NSFW        bool          `json:"nsfw"`
+	Title       string        `json:"title"`
+	Description string        `json:"description"`
 }
 
 // Get information about an image.
@@ -60,7 +64,7 @@ func (i *ImageService) UplaodImage(imagepath string, postdata PostData) {
 	defer resp.Body.Close()
 
 	var result struct {
-		Data ImageRespone `json:"data"`
+		Data Image `json:"data"`
 	}
 
 	if jerr := json.NewDecoder(resp.Body).Decode(&result); jerr != nil {

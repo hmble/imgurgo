@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -33,8 +34,10 @@ func main() {
 
 	c := u.UserClient(token)
 
-	c.SetPrint()
+	images := c.Account.Images(0)
 
-	c.Account.AlbumIds("")
+	for _, image := range images {
+		fmt.Printf("ID: %s\n", image.ID)
+	}
 
 }

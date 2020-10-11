@@ -1,7 +1,9 @@
 package imgurgo
 
 import (
+	"encoding/json"
 	"fmt"
+	"log"
 	"strconv"
 )
 
@@ -382,7 +384,7 @@ func (a *AccountService) CommentDeletion(id string) {
 
 //Return all of the images associated with the account. You can page through the
 //images by setting the page, this defaults to 0.
-func (a *AccountService) Images(page int) {
+func (a *AccountService) Images(page int) []Image {
 	path := fmt.Sprintf("/account/me/images/%d", page)
 	resp, err := a.client.Get(path, NoOptions)
 
@@ -392,8 +394,15 @@ func (a *AccountService) Images(page int) {
 	}
 
 	defer resp.Body.Close()
+	var result struct {
+		Data []Image `json:"data"`
+	}
 
-	printBytes(resp.Body, a.client)
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		log.Fatal("Error in decoding json")
+	}
+
+	return result.Data
 }
 
 // Return information about a specific image. This endpoint works the same as the
