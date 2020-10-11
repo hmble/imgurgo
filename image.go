@@ -50,9 +50,9 @@ func (i *ImageService) Info(id string) {
 // title       ( optional ) The title of the image.
 // description ( optional ) The description of the image.
 
-func (i *ImageService) UplaodImage(imagename string, postdata PostData) {
+func (i *ImageService) UplaodImage(imagepath string, postdata PostData) {
 	path := "/image"
-	resp, err := i.client.PostImageUpload(path, postdata, imagename)
+	resp, err := i.client.PostImageUpload(path, postdata, imagepath)
 
 	if err != nil {
 		respError(path)
@@ -68,7 +68,8 @@ func (i *ImageService) UplaodImage(imagename string, postdata PostData) {
 		log.Fatal("Error in decoding json response, Err: ", err)
 
 	}
-	fmt.Println(result)
+
+	fmt.Println(resp.Status)
 
 }
 
