@@ -3,3 +3,4 @@ vendor/
 *.json
 data/
 json-data
+*.jpg

@@ -49,7 +49,7 @@ func (i *ImageService) Info(id string) {
 // title       ( optional ) The title of the image.
 // description ( optional ) The description of the image.
 
-func (i *ImageService) UplaodImage(imagepath string, postdata PostData) {
+func (i *ImageService) UplaodImage(imagepath string, postdata PostData) ImageRespone{
 	path := "/image"
 	resp, err := i.client.PostImageUpload(path, postdata, imagepath)
 
@@ -68,7 +68,7 @@ func (i *ImageService) UplaodImage(imagepath string, postdata PostData) {
 
 	}
 
-	fmt.Println(resp.Status)
+	return result.Data
 
 }
 

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -20,7 +21,7 @@ func main() {
 		},
 		Useragent: os.Getenv("USER_AGENT"),
 	}
-	u := &imgurgo.User{
+	imgurUser := &imgurgo.User{
 		Authenticator: authenticator,
 	}
 
@@ -29,12 +30,15 @@ func main() {
 		log.Fatal("Error in reading token")
 	}
 
-	u.UpdateToken(token)
+	imgurUser.UpdateToken(token)
 
-	c := u.UserClient(token)
+	imgurClient := imgurUser.UserClient(token)
 
-	c.SetPrint()
+resp := imgurClient.Image.UplaodImage("./BT0BWyTFuWd.jpg", imgurgo.PostData{
+		"title": "BT0BWyTFuWd",
+	})
 
-	c.Account.AlbumIds("")
+	fmt.Println("ID is ", resp.Id)
 
+	//mJSJkQY
 }
