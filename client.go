@@ -85,7 +85,7 @@ func (u *User) Authenticate() (*oauth2.Token, error) {
 		return nil, err
 	}
 
-	u.SaveToken("token.json", token)
+	u.SaveToken("imgurtoken.json", token)
 
 	return token, nil
 

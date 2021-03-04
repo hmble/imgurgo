@@ -146,7 +146,7 @@ func UpdateToken(token *oauth2.Token, authenticator *Authenticator) {
 
 		token.Expiry = newtoken.Expiry
 
-		SaveToken("token.json", token)
+		SaveToken("imgurtoken.json", token)
 
 	}
 }

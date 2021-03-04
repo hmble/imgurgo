@@ -26,7 +26,7 @@ func main() {
 		Authenticator: authenticator,
 	}
 
-	token, er := imgurgo.TokenFromFile("token.json")
+	token, er := imgurgo.TokenFromFile("imgurtoken.json")
 	if er != nil {
 		log.Fatal("Error in reading token")
 	}
